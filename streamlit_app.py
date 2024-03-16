@@ -1,37 +1,22 @@
-
-
 import streamlit as st
-import requests
-from PIL import Image
-from io import BytesIO
+import pandas as pd
 
-# Загрузите превью видео с YouTube (замените URL на свой)
-youtube_url = "youtube.com/watch?v=fwBDtBzM4Cw"
-
-# Получите превьюшки видео с помощью YouTube API
-response = requests.get(f"https://img.youtube.com/vi/{youtube_url.split('=')[1]}/maxresdefault.jpg")
-thumbnail_bytes = BytesIO(response.content)
-thumbnail_image = Image.open(thumbnail_bytes)
+# Загрузите ваш файл JSON с историей просмотров
+# Здесь мы предполагаем, что вы уже скачали файл и назвали его "history.json"
+history_df = pd.read_json("history.json")
 
 # Создайте интерфейс с помощью Streamlit
-st.title("Превью видео с YouTube")
-st.image(thumbnail_image, use_column_width=True)
+st.title("История просмотров на YouTube")
+st.dataframe(history_df)
 
-# Добавьте ползунок для изменения масштаба картинок превьюшек
+# Добавьте ползунок для масштабирования сетки
 scale_factor = st.slider("Масштаб", min_value=0.1, max_value=2.0, step=0.1, value=1.0)
 
-# Измените размер превьюшек с учетом масштаба
-new_width = int(thumbnail_image.width * scale_factor)
-new_height = int(thumbnail_image.height * scale_factor)
-thumbnail_image_resized = thumbnail_image.resize((new_width, new_height))
-
-# Отобразите превьюшки видео на тайм-линии
-st.image(thumbnail_image_resized, use_column_width=True)
+# Отобразите историю просмотров в виде тайм-линии
+# Здесь вы можете использовать библиотеки для работы с графиками, например, Plotly или Matplotlib
+# Измените размер графика с учетом выбранного масштаба
 
 # Запустите Streamlit приложение
 if __name__ == "__main__":
-    st.set_page_config(page_title="YouTube Preview Timeline", page_icon="🎥")
+    st.set_page_config(page_title="YouTube History Visualization", page_icon="📺")
     st.write("Запустите это приложение с помощью команды `streamlit run your_app.py`")
-
-
-
