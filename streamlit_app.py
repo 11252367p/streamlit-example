@@ -6,7 +6,7 @@ from PIL import Image
 from io import BytesIO
 
 # Загрузите превью видео с YouTube (замените URL на свой)
-youtube_url = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+youtube_url = "youtube.com/watch?v=fwBDtBzM4Cw"
 
 # Получите превьюшки видео с помощью YouTube API
 response = requests.get(f"https://img.youtube.com/vi/{youtube_url.split('=')[1]}/maxresdefault.jpg")
